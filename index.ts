@@ -1,54 +1,62 @@
-#! /usr/bin/env/ node
-import inquirer from "inquirer";
+import inquirer from "inquirer"
 
 let myBalance = 10000;
-let myPin = 1234;
+const pinCode = 1234;
 
-let pinAnswer = await inquirer.prompt(
-    {
-        name: 'pinCode',
-        type:  "number",
-        message: "Please enter your pin:",
-    }
-);
+let pinEntered = await inquirer.prompt(
+   {
+    name: "pin",
+    message: "Enter Pin Code",
+    type: "number",
+   }
+ );
 
-if (pinAnswer.pinCode === myPin)
-{
-    console.log("Correct Pin Code!!");
+ if(pinEntered.pin === pinCode){
+    console.log("Correct Pin Code!!")
+    let atmMethods = await inquirer.prompt(
+        {
+            name:"method",
+            message:"Select an method of withdrawal",
+            type: "list",
+            choices: [ "Cash Withdraw", "Fast Cash"]
 
-
-let operationAns = await inquirer.prompt(
-        [
-            {
-                name: "operation",
-                message: "Please Select An Option",
-                type: "list",
-                choices: ["Withdraw", "Check Balance"],
-            }
-        ]
-    );
-    console.log(operationAns);
-
-    if(operationAns.operation === "Withdraw"){
-       let amountAns = await inquirer.prompt(
-        [
-            {
-                name: "Amount",
-                message: "Enter Amount",
-                type: "number",
-
-            }
-        ]
+        }
        );
 
-       myBalance -= amountAns.Amount;
+     if(atmMethods.method === "Cash Withdraw"){
+       let cashAmount = await inquirer.prompt(
+        {
+            name: "withdrawal",
+            message: "Enter amount you want to withdraw",
+            type: "number",
+        }
+        );
 
-       console.log("Your Remaining Balnce is: " + myBalance);
-    } else if (operationAns.operation === "Check Balance"){
-        console.log("Your Balance is: " + myBalance);
-    }
-}
+     if (myBalance >= cashAmount.withdrawal){
+         myBalance -= cashAmount.withdrawal
+         console.log(`Your remaining balace is: ${myBalance}`)
+          }
+        
+        else{
+          console.log("Sorry!!! Insufficient Balance.")
+         }};
 
-else{
-    console.log("Please enter correct pin code.");
-}
+          if(atmMethods.method === "Fast Cash"){
+           let fastAmount = await inquirer.prompt(
+            {
+                name:"fastCash",
+                message: "Please select price you want to withdraw",
+                type: "list",
+                choices: ["500","1000","2000","5000","15000"]
+            }
+           )
+          if (myBalance >= fastAmount.fastCash){
+            myBalance -= fastAmount.fastCash
+            console.log(`Your remaining balance is: ${myBalance}`)
+          }else{
+            console.log("Sorry! Insufficient Balance.")
+          }
+     }   
+   }else{
+    console.log("Incorrect Pin Code!!!")
+   };
