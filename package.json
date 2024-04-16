@@ -1,10 +1,12 @@
 {
   "name": "fazila-atm-latest",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "This is simple command prompt based atm.",
   "main": "index.js",
   "type": "module",
-  "bin": "index.js",
+  "bin": {
+    "fazila-atm-latest": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
