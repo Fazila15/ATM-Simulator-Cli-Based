@@ -1,6 +1,6 @@
 {
   "name": "fazila-atm-latest",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "This is simple command prompt based atm.",
   "main": "index.js",
   "type": "module",
