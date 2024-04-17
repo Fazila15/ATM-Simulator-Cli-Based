@@ -14,7 +14,18 @@ let pinEntered = await inquirer.prompt(
 
  if(pinEntered.pin === pinCode){
     console.log("Correct Pin Code!!")
-    let atmMethods = await inquirer.prompt(
+    let atmOption = await inquirer.prompt(
+      {
+        name:"option",
+        message:"Select an option please: ",
+        type: "list",
+        choices: ["Balance Check","Withdraw"],
+      }
+    );
+    if (atmOption.option === "Balance Check"){
+      console.log(myBalance)
+    }else
+     {let atmMethods = await inquirer.prompt(
         {
             name:"method",
             message:"Select an method of withdrawal",
@@ -58,6 +69,6 @@ let pinEntered = await inquirer.prompt(
             console.log("Sorry! Insufficient Balance.")
           }
      }   
-   }else{
+   }}else{
     console.log("Incorrect Pin Code!!!")
    };
